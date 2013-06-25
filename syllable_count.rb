@@ -1,0 +1,30 @@
+class String
+  def syllable_count
+    consonants = "bcdfghjklmnpqrstvwxz"
+    vowels = "aeiouy"
+    processed = self.downcase
+    suffix_bonus = 0
+    #puts "*** 0 #{processed}"
+    if processed.match(/ly$/)
+      suffix_bonus = 1
+      processed.gsub!(/ly$/, "")
+    end
+    if processed.match(/[a-z]ed$/)
+      # Not counting "ed" as an extra symbol. 
+      # So 'blessed' is assumed to be said as 'blest'
+      suffix_bonus = 0 
+      processed.gsub!(/ed$/, "")
+    end
+    #puts "*** 1 #{processed}"
+    processed.gsub!(/iou|eau|ai|au|ay|ea|ee|ei|oa|oi|oo|ou|ui|oy/, "@") #vowel combos
+    #puts "*** 2 #{processed}"
+    processed.gsub!(/qu|ng|ch|rt|[#{consonants}h]/, "=") #consonant combos
+    #puts "*** 3 #{processed}"
+    processed.gsub!(/[#{vowels}@][#{consonants}=]e$/, "@|") # remove silent e
+    #puts "*** 4 #{processed}"
+    processed.gsub!(/[#{vowels}]/, "@") #all remaining vowels will be counted
+    #puts "*** 5 #{processed}"
+    return processed.count("@") + suffix_bonus
+  end
+  
+end
