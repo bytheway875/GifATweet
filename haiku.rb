@@ -1,5 +1,8 @@
 require './syllable_count'
 require 'twitter'
+require 'flickraw'
+require 'launchy'
+require 'instagram'
 
 
 Twitter.configure do |config|
@@ -9,18 +12,27 @@ Twitter.configure do |config|
   config.oauth_token_secret = ENV["OAUTH_TOKEN_SECRET"]
 end
 
- tweets = Twitter.search("#micropoetry", count:10, language:'en').results
+ tweets = Twitter.search("#micropoetry beaver", count:10, language:'en').results
 
 
 tweets.map do |tweet|
-	if tweet.text.gsub!(/http\S*\b|@\S*\b|\bRT:?\b|/,'').syllable_count == 17  #removes anything starting with http
-		puts "THIS IS A HAIKU: #{tweet.text}"
-		puts
-	else
-		puts "NOT HAIKU: #{tweet.text}"
-		puts
-	end
+ tweet.text.gsub!(/http\S*\b|@\S*\b|\bRT:?\b|/,'')#.syllable_count == 17  #removes anything starting with http
 end
 
 #\bRT\b
+
+#flickraw
+FlickRaw.api_key=ENV["FLICKR_KEY"]
+FlickRaw.shared_secret=ENV["FLICKR_SHARED_SECRET"]
+
+results = flickr.photos.search(text: "square", per_page: 10)
+rand = Random.new.rand(results.length)
+  info = flickr.photos.getInfo(photo_id: results[rand].id)
+  url = FlickRaw.url_m(info)
+Launchy.open(url)
+  # puts "http://farm#{result.farm-id}.staticflickr.com/#{result.server-id}/#{result.id}_#{result.secret}.jpg"
+
+Instagram.configure do |config|
+  config.client_id = ENV["INSTA_CLIENT_ID"]
+  config.client_secret = ENV["INSTA_CLIENT_SECRET"]
 
