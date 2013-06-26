@@ -21,18 +21,21 @@ end
 
 #\bRT\b
 
-#flickraw
-FlickRaw.api_key=ENV["FLICKR_KEY"]
-FlickRaw.shared_secret=ENV["FLICKR_SHARED_SECRET"]
+# #flickraw
+# FlickRaw.api_key=ENV["FLICKR_KEY"]
+# FlickRaw.shared_secret=ENV["FLICKR_SHARED_SECRET"]
 
-results = flickr.photos.search(text: "square", per_page: 10)
-rand = Random.new.rand(results.length)
-  info = flickr.photos.getInfo(photo_id: results[rand].id)
-  url = FlickRaw.url_m(info)
-Launchy.open(url)
+# results = flickr.photos.search(text: "square", per_page: 10)
+# rand = Random.new.rand(results.length)
+#   info = flickr.photos.getInfo(photo_id: results[rand].id)
+#   url = FlickRaw.url_m(info)
+# Launchy.open(url)
   # puts "http://farm#{result.farm-id}.staticflickr.com/#{result.server-id}/#{result.id}_#{result.secret}.jpg"
 
 Instagram.configure do |config|
   config.client_id = ENV["INSTA_CLIENT_ID"]
   config.client_secret = ENV["INSTA_CLIENT_SECRET"]
+end
+
+puts Instagram.tag_recent_media('beaver', options = {count: 10}).methods
 
