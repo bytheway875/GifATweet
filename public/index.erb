@@ -1,0 +1,14 @@
+
+<head>
+ <link rel='stylesheet' type='text/css' href='public/style.css'>
+</head>
+<body>
+  <div>
+    <img src=#{result_url} alt='#{tweet_text_keywords[rand_keyword_1]} #{tweet_text_keywords[rand_keyword_2]}' height='300'>
+    <h1>#{tweets[rand].text}</h1>
+    <h2>#{tweet_text_keywords}</h2>
+    <h1>#{tweet_text_keywords[rand_keyword_1]}
+        #{tweet_text_keywords[rand_keyword_2]}</h1>
+    <h2>#{JSON.parse(buffer)["data"][0]["url"]}</h2>
+  </div>
+</body>
